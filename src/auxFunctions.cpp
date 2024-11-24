@@ -81,36 +81,40 @@ void printSolution(IloCplex cplex, IloArray <IloBoolVarArray> x, int n)
 	/**************************************************/
 	
 	/*************** Building the route ***************/
-	solution.push_back(0);
-	int p;
-	vector<bool> in_solution(n, false);
-	in_solution[0] = true;
-	bool find = true;
-	int last_index = 0, current_index = 0;
+	try{
 
-	while (solution.size() < n){
-		p = solution[last_index];
+		solution.push_back(0);
+		int p;
+		vector<bool> in_solution(n, false);
+		in_solution[0] = true;
+		bool find = true;
+		int last_index = 0, current_index = 0;
 
-		for(int j = 0; j < n; j++){
-			if (sol[p][j] == 1 || sol[j][p] == 1) {
-				if(in_solution[j] == false){
-					solution.insert(solution.begin() + current_index + 1, j);
-					in_solution[j] = true;
-					current_index++;
+		while (solution.size() < n){
+			p = solution[last_index];
+
+			for(int j = 0; j < n; j++){
+				if (sol[p][j] == 1 || sol[j][p] == 1) {
+					if(in_solution[j] == false){
+						solution.insert(solution.begin() + current_index + 1, j);
+						in_solution[j] = true;
+						current_index++;
+					}
 				}
 			}
+			last_index++;
+			current_index = last_index;
 		}
-		last_index++;
-		current_index = last_index;
-	}
-	solution.push_back(0);
-	/**************************************************/
+		solution.push_back(0);
+		/**************************************************/
 
-	cout << "\nRoute: ";
-	for (int i = 0; i < solution.size(); i++) {
-		cout << solution[i] + 1 << " ";
+		cout << "\nRoute: ";
+		for (int i = 0; i < solution.size(); i++) {
+			cout << solution[i] + 1 << " ";
+		}
+		cout << endl;
+	}catch(...){
 	}
-	cout << endl;
 
 	/************** Cleaning the memory ***************/
 	for (int i = 0; i < n; i++) {

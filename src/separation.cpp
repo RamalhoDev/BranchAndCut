@@ -16,22 +16,17 @@ vector <vector<int> > MaxBack(double** x, int n){
     }
 
     cutVal = cutMin;
-
-    while(1){
+    int count = 1;
+    while(count < n){
         int idxMaxBackCost = -1;
         double maxBackCost = -1;
-        bool noVertexOutsideS = true;
 
         for (size_t i = 0; i < maxBackCosts.size(); i++){
             if(maxBackCosts[i] > maxBackCost && !S[i]){
                 idxMaxBackCost = i;
                 maxBackCost = maxBackCosts[i];
-                noVertexOutsideS = false;
             }
         }
-
-        if(noVertexOutsideS)
-            break;
 
         S[idxMaxBackCost] = 1;
         cutVal += 2 - 2 * maxBackCosts[idxMaxBackCost];
@@ -47,14 +42,16 @@ vector <vector<int> > MaxBack(double** x, int n){
             maxBackCosts[i] = maxBackCosts[i] + x[a][b];
         }
 
-        if(cutVal < cutMin){
+        count++;
+
+        if(cutVal < cutMin && count < n){
             cutMin = cutVal;
             Smin = S;
         }
     }
 
     vector<int> subtour = vector<int>();
-    int count = 0;
+    count = 0;
 
     for(size_t i = 0; i < Smin.size(); i++){
         if(Smin[i]){
@@ -69,7 +66,9 @@ vector <vector<int> > MaxBack(double** x, int n){
             cout << subtour[i] << " ";
         }
         cout << "\n";
-        subtours.push_back(subtour);
+        if(cutMin < (2-0.0000001))
+            subtours.push_back(subtour);
+       
     }
 
     return subtours;
