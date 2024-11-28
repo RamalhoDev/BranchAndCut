@@ -82,7 +82,6 @@ void printSolution(IloCplex cplex, IloArray <IloBoolVarArray> x, int n)
 	
 	/*************** Building the route ***************/
 	try{
-
 		solution.push_back(0);
 		int p;
 		vector<bool> in_solution(n, false);
