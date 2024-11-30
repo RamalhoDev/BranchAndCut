@@ -67,13 +67,13 @@ vector<vector<int>> MaxBack(vector<vector<double>> x, int n, bool isMinCutPhase,
 
 	subtours.push_back(Smin);
 
-	if (!isMinCutPhase) {
-		cout << Smin.size() << "\n";
-		for (size_t i = 0; i < Smin.size(); i++) {
-			cout << Smin[i] << " ";
-		}
-		cout << "\n";
-	}
+	// if (!isMinCutPhase) {
+	// 	cout << Smin.size() << "\n";
+	// 	for (size_t i = 0; i < Smin.size(); i++) {
+	// 		cout << Smin[i] << " ";
+	// 	}
+	// 	cout << "\n";
+	// }
 
 	return subtours;
 }
