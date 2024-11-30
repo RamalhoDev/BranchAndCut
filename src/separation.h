@@ -29,8 +29,8 @@ typedef struct{
     bool is_vertexA;
 } vertex_type;
 
-extern vector <vector<int> > MaxBack(double** x, int n, bool isMinCutPhase=false, double * cutCost = NULL);
-extern vector <vector<int> > MinCut(double** x, int n);
+extern vector <vector<int> > MaxBack(vector<vector<double>> x, int n, bool isMinCutPhase=false, double * cutCost = NULL);
+extern vector <vector<int> > MinCut(vector<vector<double>> x, int n);
 
 #endif
 

@@ -47,11 +47,7 @@ void MyCutCallback::main()
 	vector< vector<int> > cutSetPool;
 	vector<IloConstraint> cons; 
 
-	double **x_edge = new double*[n];
- 
-	for (int i = 0; i < n; i++) {
-		x_edge[i] = new double[n];
-	}
+	vector<vector<double>> x_edge = vector<vector<double>>(n, vector<double>(n, 0));
 
 	int l = 0;
 	for(int i = 0; i < n; i++) {
@@ -60,12 +56,13 @@ void MyCutCallback::main()
 		}
 	}
 	
-	cutSetPool = MaxBack(x_edge, n);
+	// cutSetPool = MaxBack(x_edge, n);
 	
-	if (cutSetPool.empty() && depth <= 7) {
-		// cutSetPool = MinCut(x_edge, n);
-		// cutSetPool = MultipleMinCut(x_edge, n);
-	}
+		cutSetPool = MinCut(x_edge, n);	
+	// if (cutSetPool.empty() && depth <= 7) {
+	// 	cutSetPool = MinCut(x_edge, n);
+	// 	// cutSetPool = MultipleMinCut(x_edge, n);
+	// }
 
 	/***************** Creating the constraints ***************/
 	if (!cutSetPool.empty()){
@@ -89,11 +86,5 @@ void MyCutCallback::main()
 	}
 	/**********************************************************/
 
-	/******************* Cleaning the memory ******************/
-	for (int i = 0; i < n; i++) {
-		delete[] x_edge[i];
-	}
-	delete[] x_edge;
-	/**********************************************************/
 }
 /*****************************************************************************************************************/
